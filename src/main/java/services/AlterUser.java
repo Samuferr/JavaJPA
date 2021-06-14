@@ -6,21 +6,24 @@ import javax.persistence.Persistence;
 
 import entities.User;
 
-public class CreateUserService {
+public class AlterUser {
+
 	public static void main(String[] args) {
-		
-		EntityManagerFactory emf = Persistence
-				.createEntityManagerFactory("java-jpa");
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("java-jpa");
 		EntityManager em = emf.createEntityManager();
 		
-		User newUser = new User("Lia", "lia@gmail.com");
 		em.getTransaction().begin();
-		em.persist(newUser);
-		em.getTransaction().commit();
 		
-		System.out.println("O novo id gerado foi: " + newUser.getId());
+		User user = em.find(User.class, 2L);
+		user.setName("Maria");
+		user.setEmail("maria@gmail.com");
+		em.merge(user);
+		
+		em.getTransaction().commit();
 		
 		em.close();
 		emf.close();
+
 	}
+
 }
