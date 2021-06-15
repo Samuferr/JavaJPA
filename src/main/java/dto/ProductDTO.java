@@ -54,7 +54,7 @@ public class ProductDTO<E> {
 	}
 	
 	public List<E> findAll(int limit, int offSet) {
-		if (classe != null) {
+		if (classe == null) {
 			throw new UnsupportedOperationException("Classe nula.");
 		}
 		String jpql = "SELECT e FROM " + classe.getName() + " e";
